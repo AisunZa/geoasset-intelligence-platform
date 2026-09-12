@@ -1,0 +1,36 @@
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Conda / virtual environments
+.conda/
+.env/
+venv/
+
+# Spyder
+.spyproject/
+.spyderproject
+
+# Environment variables / secrets
+.env
+*.env
+
+# Database credentials
+credentials.ini
+secrets.ini
+
+# Temporary files
+*.tmp
+*.log
+
+# QGIS temporary / backup files
+*.qgz~
+*.qgs~
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS files
+Thumbs.db
+Desktop.ini
+.DS_Store

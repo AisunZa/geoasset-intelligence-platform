@@ -1,0 +1,13 @@
+name: geoasset
+
+channels:
+  - conda-forge
+
+dependencies:
+  - python=3.13
+  - geopandas
+  - shapely
+  - pandas
+  - sqlalchemy
+  - geoalchemy2
+  - psycopg

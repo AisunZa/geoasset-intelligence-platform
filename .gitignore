@@ -34,3 +34,14 @@ secrets.ini
 Thumbs.db
 Desktop.ini
 .DS_Store
+
+# Downloaded geospatial data
+data/raw/*
+!data/raw/.gitkeep
+
+# Generated/processed geospatial data
+data/processed/*
+!data/processed/.gitkeep
+
+# OSMnx cache
+cache/

@@ -11,3 +11,4 @@ dependencies:
   - sqlalchemy
   - geoalchemy2
   - psycopg
+  - osmnx

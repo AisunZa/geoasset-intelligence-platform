@@ -368,8 +368,9 @@ def calculate_nearby_buildings(
     Count buildings within the specified distance
     from every pipeline.
 
-    GeoPandas performs the spatial operation independently
-    from PostGIS so that the result can later be validated.
+    Uses GeoPandas' dwithin spatial predicate so the
+    calculation matches PostGIS ST_DWithin as closely
+    as possible.
     """
 
     pipelines = pipelines.copy()
@@ -380,18 +381,9 @@ def calculate_nearby_buildings(
 
         return pipelines
 
-    pipeline_buffers = pipelines[
-        [
-            "pipeline_id",
-            "asset_code",
-            "geom"
-        ]
-    ].copy()
-
-    pipeline_buffers["geom"] = (
-        pipeline_buffers.geometry.buffer(distance)
-    )
-
+    # Perform a direct distance-based spatial join.
+    # This corresponds to the logic used by
+    # PostGIS ST_DWithin.
     nearby_buildings = gpd.sjoin(
         buildings[
             [
@@ -399,7 +391,7 @@ def calculate_nearby_buildings(
                 "geom"
             ]
         ],
-        pipeline_buffers[
+        pipelines[
             [
                 "pipeline_id",
                 "asset_code",
@@ -407,7 +399,8 @@ def calculate_nearby_buildings(
             ]
         ],
         how="inner",
-        predicate="intersects"
+        predicate="dwithin",
+        distance=distance
     )
 
     building_counts = (

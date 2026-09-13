@@ -12,3 +12,5 @@ dependencies:
   - geoalchemy2
   - psycopg
   - osmnx
+  - fastapi
+  - uvicorn

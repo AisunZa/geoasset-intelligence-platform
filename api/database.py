@@ -3,10 +3,10 @@ import os
 from sqlalchemy import create_engine, URL
 
 
-DB_HOST = "localhost"
-DB_PORT = 5432
-DB_NAME = "geoasset"
-DB_USER = "postgres"
+DB_HOST = os.getenv("GEOASSET_DB_HOST", "localhost")
+DB_PORT = int(os.getenv("GEOASSET_DB_PORT", "5432"))
+DB_NAME = os.getenv("GEOASSET_DB_NAME", "geoasset")
+DB_USER = os.getenv("GEOASSET_DB_USER", "postgres")
 
 
 def get_engine():

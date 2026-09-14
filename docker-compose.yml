@@ -1,0 +1,14 @@
+services:
+  api:
+    build: .
+    container_name: geoasset-api
+
+    ports:
+      - "8001:8000"
+
+    environment:
+      GEOASSET_DB_HOST: host.docker.internal
+      GEOASSET_DB_PORT: 5432
+      GEOASSET_DB_NAME: geoasset
+      GEOASSET_DB_USER: postgres
+      GEOASSET_DB_PASSWORD: ${GEOASSET_DB_PASSWORD}

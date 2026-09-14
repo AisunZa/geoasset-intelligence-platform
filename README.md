@@ -14,18 +14,20 @@ The project analyzes pipeline infrastructure and helps identify higher-risk pipe
 
 ## Technology Stack
 
-- QGIS
-- PyQGIS
-- PostgreSQL
-- PostGIS
-- Python
-- GeoPandas
-- Shapely
-- Pandas
-- SQLAlchemy
-- Psycopg
-
-Additional components such as FastAPI, Docker, GeoServer/QGIS Server, automated testing, and CI/CD will be added as the project develops.
+* QGIS / PyQGIS
+* PostgreSQL / PostGIS
+* Python 3.13
+* GeoPandas
+* Shapely
+* Pandas
+* SQLAlchemy
+* Psycopg
+* FastAPI
+* Uvicorn
+* Docker
+* Docker Compose
+* Pytest
+* GitHub Actions
 
 ## Current Features
 

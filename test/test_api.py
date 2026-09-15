@@ -8,6 +8,13 @@ from api.main import app
 
 client = TestClient(app)
 
+EXPECTED_TOTAL_PIPELINES = int(
+    os.getenv("GEOASSET_EXPECTED_PIPELINE_COUNT", "500")
+)
+
+EXPECTED_TOTAL_FAILURES = int(
+    os.getenv("GEOASSET_EXPECTED_FAILURE_COUNT", "267")
+)
 
 # ---------------------------------------------------------
 # Database test configuration
@@ -384,7 +391,7 @@ def test_risk_summary():
         for row in summary
     )
 
-    assert total_pipelines == 500
+    assert total_pipelines == EXPECTED_TOTAL_PIPELINES
 
 
 # ---------------------------------------------------------
@@ -399,11 +406,11 @@ def test_network_statistics():
 
     data = response.json()
 
-    assert data["total_pipelines"] == 500
+    assert data["total_pipelines"] == EXPECTED_TOTAL_PIPELINES
     assert data["total_length_km"] > 0
     assert data["average_age_years"] > 0
     assert data["average_diameter_mm"] > 0
-    assert data["total_failures"] == 267
+    assert data["total_failures"] == EXPECTED_TOTAL_FAILURES
 
 
 # ---------------------------------------------------------

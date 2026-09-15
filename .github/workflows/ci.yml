@@ -13,6 +13,33 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    env:
+      GEOASSET_DB_HOST: localhost
+      GEOASSET_DB_PORT: 5432
+      GEOASSET_DB_NAME: geoasset
+      GEOASSET_DB_USER: postgres
+      GEOASSET_DB_PASSWORD: postgres
+      GEOASSET_EXPECTED_PIPELINE_COUNT: 4
+      GEOASSET_EXPECTED_FAILURE_COUNT: 3
+
+    services:
+      postgis:
+        image: postgis/postgis:15-3.5
+
+        env:
+          POSTGRES_DB: geoasset
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+
+        ports:
+          - 5432:5432
+
+        options: >-
+          --health-cmd "pg_isready -U postgres -d geoasset"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -27,7 +54,20 @@ jobs:
           python -m pip install --upgrade pip
           pip install fastapi sqlalchemy psycopg[binary] pytest httpx
 
-      - name: Run API tests
+      - name: Install PostgreSQL client
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client
+
+      - name: Initialize PostGIS test database
+        env:
+          PGPASSWORD: postgres
+        run: |
+          psql -h localhost -U postgres -d geoasset -f database/01_schema.sql
+          psql -h localhost -U postgres -d geoasset -f database/02_views.sql
+          psql -h localhost -U postgres -d geoasset -f database/04_ci_test_data.sql
+
+      - name: Run full test suite
         run: |
           python -m pytest -v
 

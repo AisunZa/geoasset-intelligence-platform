@@ -1,0 +1,13 @@
+[general]
+name=GeoAsset Inspector
+description=Inspect pipeline infrastructure risk directly from the GeoAsset Intelligence API.
+version=1.0.0
+qgisMinimumVersion=3.12
+qgisMaximumVersion=3.99
+author=AisunZa
+email=aisunzarghami@gmail.com
+category=Database
+experimental=False
+deprecated=False
+repository=https://github.com/AisunZa/geoasset-intelligence-platform
+about=Search pipeline assets by ID, retrieve risk information from FastAPI, display the results in QGIS, and zoom to the pipeline geometry.
